@@ -1,0 +1,9 @@
+{
+    "title": "My Lofi Site",
+    "header": "lofi-example-header",
+    "footer": "lofi-example-footer",
+    "menu": "horizontal",
+    "pages": [
+        { "title": "Home", "path": "/", "txti": "lofi-example-home" }
+    ]
+}
