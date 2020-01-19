@@ -32,3 +32,9 @@ The `title` will be displayed in the web browser tab and in search results. The 
 ## Installation
 
 Head on over to the [GitHub project page](https://github.com/blakewatson/lofi) and download the two files, `index.php` and `.htaccess`. You should be able to drop those files in the web root on just about any PHP-enabled Apache server. You also need to put the `lofi-data.json` file you created in the last step in the web root. That's it, you should see your website when you visit the URL!
+
+## Features
+
+**Navigation menu** - by default, Lofi will create a navigation menu made up of all your pages, listed in the order they are given in `lofi-data.json`. You can display the menu horizontally by setting `menu` to `horizontal`. You can hide the menu altogether by setting `menu` to `false` -- useful should you want to provide your own menu in the header.
+
+**Code snippets** - txti code snippets turn special HTML characters (like `"`) into [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Entity). Lofi will decode these entities inside of `<code>` tags so that code snippets are properly displayed.
