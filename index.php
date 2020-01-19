@@ -227,7 +227,13 @@ function make_nav( $data ) {
         }
 
         $path = $page['path'];
-        $title = ucfirst( substr( $path, 1 ) );
+        $title = '';
+
+        if( $path === '/' ) {
+            $title = 'Index';
+        } else {
+            $title = ucfirst( substr( $path, 1 ) );
+        }
 
         if( array_key_exists( 'title', $page ) ) {
             $title = $page['title'];
