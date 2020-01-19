@@ -7,6 +7,9 @@ function main() {
     $page = get_page( $data, $path );
 
     $template_data = [];
+    $template_data['css'] = get_css( $data );
+    $template_data['custom-css'] = get_custom_css( $data );
+    $template_data['script'] = get_script( $data );
     $template_data['header'] = get_header( $data );
     $template_data['footer'] = get_footer( $data );
 
@@ -40,6 +43,26 @@ function get_content( $data, $path ) {
     }
     
     return $dom->saveHTML();
+}
+
+function get_css( $data ) {
+    if( ! array_key_exists( 'css', $data ) ) {
+        return 'https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css';
+    }
+
+    if( $data['css'] === false ) {
+        return '';
+    }
+
+    return $data['css'];
+}
+
+function get_custom_css( $data ) {
+    if( ! array_key_exists( 'custom-css', $data ) ) {
+        return '';
+    }
+
+    return sprintf( '<link rel="stylesheet" href="%s">', $data['custom-css'] );
 }
 
 function get_footer( $data ) {
@@ -76,6 +99,14 @@ function get_page( $data, $path ) {
     }
 
     return array_pop( $results );
+}
+
+function get_script( $data ) {
+    if( ! array_key_exists( 'script', $data ) ) {
+        return '';
+    }
+
+    return sprintf( '<script src="%s"></script>', $data['script'] );
 }
 
 function get_title( $data, $page = null ) {
@@ -145,7 +176,8 @@ function make_html( $data ) {
                 <meta charset="utf-8" />
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <title>%s</title>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" />
+                <link rel="stylesheet" href="%s" />
+                %s
                 <style>
                     .lofi-menu ul {
                         padding-left: 0;
@@ -164,12 +196,20 @@ function make_html( $data ) {
             
             <body>
                 %s
+                %s
             </body>
             
         </html>
 EOD;
 
-    return sprintf( $layout, $data['title'], $body );
+    return sprintf(
+        $layout,
+        $data['title'],
+        $data['css'],
+        $data['custom-css'],
+        $body,
+        $data['script']
+    );
 }
 
 function make_nav( $data ) {
