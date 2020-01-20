@@ -140,6 +140,7 @@ function get_txti( $path ) {
 function go_404( $data, $template_data = [] ) {
     $template_data['title'] = get_title( $data );
     $template_data['content'] = '<h2>404: Page not found.</h2>';
+    header("HTTP/1.0 404 Not Found");
     echo make_html( $template_data );
 }
 
